@@ -9,7 +9,7 @@
 
 #define DISP_BUF_SIZE (128 * 1024)
 
-int main(void)
+int main(int argc, char *argv[])
 {
     /*LittlevGL init*/
     lv_init();
@@ -51,7 +51,29 @@ int main(void)
 
 
     /*Create a Demo*/
-    lv_demo_widgets();
+    if (argc < 2) {
+        lv_demo_widgets();
+    }
+
+    else {
+        char *arg1 = argv[1];
+
+        if (strcmp(arg1, "demo_widgets") == 0) {
+            lv_demo_widgets();
+        } else if (strcmp(arg1, "demo_keypad_and_encoder") == 0) {
+            lv_demo_keypad_encoder();
+        } else if (strcmp(arg1, "demo_benchmark") == 0) {
+            lv_demo_benchmark();
+        } else if (strcmp(arg1, "demo_stress") == 0) {
+            lv_demo_stress();
+        } else if (strcmp(arg1, "demo_music") == 0) {
+            lv_demo_music();
+        } else {
+            printf("Usage:\nlvgl_fb <option>\n\nwhere <option> can be demo_widgets, demo_keypad_and_encoder, demo_benchmark, demo_stress OR demo_music.");
+            return 1;
+        }
+    }
+
 
     /*Handle LitlevGL tasks (tickless mode)*/
     while(1) {
